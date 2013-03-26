@@ -1,0 +1,6 @@
+www:
+  type: python
+db:
+  type: mysql
+cache:
+  type: redis

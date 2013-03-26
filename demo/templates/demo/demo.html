@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GTG Online Interface Demo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 	<link href="{{ STATIC_URL }}css/demo.css" rel="stylesheet" media="screen">
+	<link href="{{ STATIC_URL }}css/demo-responsive.css" rel="stylesheet">
+ </head>
+  <body>
+    <script src="http://code.jquery.com/jquery.js"></script>
+	
+	<div class="navbar navbar-inverse navbar-fixed-top">
+	<div class="navbar-inner">
+	<div class="container-fluid">
+	<table width="100%">
+	<tr>
+		<td><a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+		</a></td>
+		<td><a class="brand" href="#">Getting Things Gnome!</a></td>
+		<td><ul class="nav">
+				<li><div class="btn-group spacing">
+        <button class="btn  dropdown-toggle" data-toggle="dropdown">Sort by<span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Task Name</a></li>
+            <li><a href="#">Due Date</a></li>
+            <li><a href="#">Days Left</a></li>
+        </ul>             
+    	</div></li>
+			  <li><div class="btn-group spacing">
+        <button class="btn  dropdown-toggle" data-toggle="dropdown">Filter Tasks<span class="caret"></span></button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Without Start Date</a></li>
+            <li><a href="#">Without Due Date</a></li>
+            <li><a href="#">Without Tags</a></li>
+        </ul>             
+    	</div></li>
+		</ul>
+	</td>
+		<div class="nav-collapse">
+			<td>
+			<form class="navbar-search">
+  <input type="text" class="search-query" placeholder="Search/Add Tasks, Tags">
+</form>
+			</td>
+			<div class="pull-right">
+			<td><div id="tab" class="btn-group" data-toggle="buttons-radio">
+			<a href="#organiser" class="btn btn-primary active" data-toggle="tab">Organiser</a>
+			<a href="#work_view" class="btn btn-primary" data-toggle="tab">Work View</a></div></td>
+			<td>
+                <ul class="nav pull-right">
+                    <li class="dropdown"><a href="#" class="dropdown-toggle" data-toggle="dropdown">Welcome, Lionel <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-home"></i> Profile </a></li>
+                            <li><a href="#"><i class="icon-wrench"></i> Settings</a></li>
+                            <li><a href="#"><i class="icon-question-sign"></i> Help</a></li>
+                            <li><a href="#"><i class="icon-envelope"></i> Contact Us</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><i class="icon-off"></i> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul></td></div></div></tr></table>
+		</div>
+	</div>
+	</div>
+	
+<!--	<div class="container-fluid" style="background-color:#ffffe0">-->
+		<div class="container-fluid" style="background-image:url({{ STATIC_URL }}img/blue.jpg)">
+		<div class="row-fluid">
+		<div class="span2">
+			
+		<div class="sidebar-nav well sidebar-nav-fixed">
+				<ul class="nav nav-list">
+				  <li><button class="btn btn-large" type="button">New Task</button></li>
+				  <br>
+				  <li class="nav-header"><i class="icon-tasks"> </i>Tasks</li>
+				  <li class="divider"></li>
+				  <li><a href="#"><i class="icon-tasks"></i>All<span class="pull-right muted">108</span></a></li>
+				  <li><a href="#"><i class="icon-play"></i>Active<span class="pull-right muted">37</span></a></li>
+				  <li><a href="#"><i class="icon-ok"></i>Done<span class="pull-right muted">64</span></a></li>
+				  <li><a href="#"><i class="icon-minus-sign"></i>Dismissed<span class="pull-right muted">7</span></a></li>
+				  <br>
+				  <li class="nav-header"><i class="icon-tags"> </i>Tags</li>
+				  <li class="divider"></li>
+  				  <li><a href="#"><span class="label label-important">&nbsp;&nbsp;&nbsp;</span> Home<span class="pull-right muted">5</span></a></li>
+				  <li><a href="#"><span class="label label-success">&nbsp;&nbsp;&nbsp;</span> Work<span class="pull-right muted">17</span></a></li>
+  				  <li><a href="#"><span class="label label-warning">&nbsp;&nbsp;&nbsp;</span> Downtown<span class="pull-right muted">3</span></a></li>
+				  <li><a href="#"><span class="label label-white">&nbsp;&nbsp;&nbsp;</span> Phone Calls<span class="pull-right muted">1</span></a></li>
+<!--        		  <li><a href="#"><i class="icon-comment"></i> Comments <span class="badge badge-info">10</span></a></li>
+				  <li class="active"><a href="#"><i class="icon-user"></i> Members</a></li>-->
+				  <br>
+				  <li class="nav-header"><i class="icon-exclamation-sign"> </i>Tasks Due Dates</li>
+				  <li class="divider"></li>
+				  <li><a href="#"><span class="label label-red">Due Today</span><span class="pull-right muted">1</span></a></li>
+				  <li><a href="#"><span class="label label-yellow" style="color:#4d4d4d">Due This Week</span><span class="pull-right muted">9</span></a></li>
+				  <br>
+				  <li class="divider"></li>
+				  <li>
+				  <div class="btn-group">
+					  <button class="btn"><i class="icon-refresh"></i></button>
+					  <button class="btn"><i class="icon-envelope"></i></button>
+					  <button class="btn"><i class="icon-tag"></i><i class="icon-plus"></i></button>
+				  </div>
+				  </li>
+<!--				  <li><a href="#">Settings<span class="pull-right muted">100</span></a></li>
+				  <li><a href="#"><i class="icon-share"></i> Logout</a></li>-->
+				</ul>
+		</div>
+	</div>
+    
+	<div class="span10" style="position:relative">
+	
+	<!---------------------------------------------------- start here for right pane 	---------------------------------------------------------------------->
+	
+
+	
+		
+
+	<div class="tab-content">
+	  <div class="tab-pane active" id="organiser">
+	  
+	<!---------------------------------------------------    start here for tab pane ------------------------------------------------------------------>
+	  
+
+	 <div  class="container-fluid-custom opacious"><br><br><br>
+	 <table width="100%" class="table-condensed">
+	 <tr>
+	 <th style="width:6%"><span style="color:#cccccc">Subtasks</span></th>
+	 <th style="width:27%"><span style="color:#cccccc">Title</span></th>
+	 <th style="width:15%"><span style="color:#cccccc">Tags</span></th>
+	 <th style="width:32%"><span style="color:#cccccc">Description</span></th>
+	 <th style="width:10%"><span class="pull-right" style="color:#cccccc">Start Date</span></th>
+	 <th style="width:10%"><span class="pull-right" style="color:#cccccc">End Date</span></th>
+	 </tr>
+	 </table>
+		</div>
+		
+		
+		  
+	  <div class="accordion container-fluid-custom2" id="parent">
+        <div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse11" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>2</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Summer's here: Lets clean the house!</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">It's that time of the year again ...</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>06.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>13.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+          <div id="collapse11" class=" collapse">
+		  <div class="accordion-group offset-half">
+              <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse12" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>1</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Mow the lawn</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Now that summer's here, It's time to put the grass back to normal heights</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  <div id="collapse12" class=" collapse offset-half">
+	          <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Repair the Lawn mower</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a><a href="#"><span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a><a href="#"><span class="label label-important">Home</span></a></span></td>
+				      <td style="width:32%"><span class="pull-left"><a href="#" style="text-decoration:none"><span class="muted">I need to replace the heat sink</span></a></span></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  </div>
+		  </div>
+          </div>
+		</div>
+		
+		<!--------------------------------------------   Task separator -------------------------------------------------->
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse21" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>2</a></td>
+				      <td style="width:27%"><div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>It's Christmas!</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">It's that time of the year again ...</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>06.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>13.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+          <div id="collapse21" class=" collapse" style="display:block">
+		  <div class="accordion-group offset-half">
+              <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse22" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>1</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Bring the Christmas Tree</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Get it from Wendy's. They are great there</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  <div id="collapse22" class=" collapse offset-half" style="display:block">
+	          <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Bring Gifts for the kids</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a><a href="#"><span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a></span></td>
+				      <td style="width:32%"><span class="pull-left"><a href="#" style="text-decoration:none"><span class="muted">Go to toyland after work</span></a></span></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  </div>
+		  </div>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Call Mum</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important">Home</span></a><a href="#"><span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">She's back from vacation this thursday</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>02.07.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Send invoices to the clients</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse41" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>1</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Fill up the TPS Reports</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">A memo just arrived: all TPS reports must be completed by the end of the week</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>02.07.12</strong></span></a>
+					  </td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		  <div id="collapse41" class=" collapse">
+		  <div class="accordion-group offset-half">
+	          <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+					  <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Call executives and arrange meeting at Cartman's office</strong>&nbsp;<i class="icon-ok"></i></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success">Work</span></a><a href="#">
+					  <span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a></span></td>
+				      <td style="width:32%"><span class="pull-left"><a href="#" style="text-decoration:none">
+					  <span class="muted">And yes, remember to call them on their new office nos. They have been changed</span></a></span></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  </div>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Pick up Laundary</strong>
+						  <i class="icon-minus-sign"></i></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important-space">Home</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">This time it is at Macy's</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 16.08.12</strong></span></a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>21.08.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Remember to post the letter</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Also send it to the vice-chairman</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 23.10.12</strong></span></a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-red"><i class="icon-time"></i></span><strong>01.11.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Bring tickets of the film</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important">Home</span></a>
+					 <a href="#"><span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Call Joanne and tell her to come early</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>Today</strong></span></a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-red"><i class="icon-time"></i></span><strong>Tomorrow</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse61" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>1</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Pack the bags for Lucy's trip</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important-space">Home</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">she's going europe</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		  <div id="collapse61" class=" collapse">
+		  <div class="accordion-group offset-half">
+	          <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+					  <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Repair the red bag</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important">Home</span></a><a href="#">
+					  <span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><span class="pull-left"><a href="#" style="text-decoration:none">
+					  <span class="muted">Go to Modo, 44th street. They'll do it</span></a></span></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 26.10.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>29.10.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  </div>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Meet Uncle at the park</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Take some chocolates with you</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Meet Emma's teacher</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Discuss her college prospectives</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>Someday</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse71" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>3</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Go pick up Dad at the airport</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Flight: IC8007 Indigo Airlines</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong>04.10.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"></i><span class="label label-green"><i class="icon-time"></i></span><strong>24.10.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+          <div id="collapse71" class=" collapse">
+		  <div class="accordion-group offset-half">
+              <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse72" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>2</a></td>
+				      <td style="width:27%"><div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Clean the guest room</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important-space">Home</span></a></span></td>
+				      <td style="width:32%"></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 07.09.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>10.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  <div id="collapse72" class=" collapse offset-half">
+	          <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><a class="accordion-toggle" data-toggle="collapse" data-target="#collapse73" href="#" style="text-decoration:none; color:#4d4d4d">
+					  <i class="icon-plus"></i>1</a></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Repair the Vaccum Cleaner</strong>&nbsp;
+						  <i class="icon-ok"></i></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label">Work</span></a></span></td>
+				      <td style="width:32%"><span class="pull-left"><a href="#" style="text-decoration:none"><span class="muted">I need to replace the heat sink</span></a></span></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.10.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i></span><strong>10.10.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  <div id="collapse73" class=" collapse offset-half">
+	          <div class="accordion-heading">
+			  <table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Buy a new heat sink</strong>&nbsp;
+						  <i class="icon-ok"></i></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				      <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a></span></td>
+				      <td style="width:32%"></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 08.10.12</strong></span>
+					  </a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  	<span class="pull-right"><span class="label"><i class="icon-time"></i></span><strong>9.10.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+			  </div>
+			  </div>
+		  </div>
+		  </div>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Find the lost DVD</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-important-space">Home</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Do it before mum comes home!</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+							<span class="pull-right"><i class="icon-exclamation-sign"></i><span class="label label-red"><i class="icon-time"></i>
+							</span><strong>Today</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Order a pizza</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Country Special</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+							<span class="pull-right"><span class="label label-green"><i class="icon-time"></i>
+							</span><strong>10.12.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Send application to Dean</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Be sure to do it before this week ends</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Participate in school dance competition</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"></td>
+				      <td style="width:32%"></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-right"><span class="label label-green"><i class="icon-time"></i></span><strong> 10.12.12</strong></span></a></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>16.12.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong> <i class="icon-ok"></i></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong> <i class="icon-ok"></i></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		<div class="accordion-group">
+          <div class="accordion-heading">
+				<table width="99%" class="table-hover">
+				  <tr>
+				      <td style="width:6%"><span class="accordion-toggle"><i class="icon-certificate"></i></span></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong> <i class="icon-ok"></i></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-right"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+				      <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"></td>
+				      <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+						<span class="pull-right"><span class="label label-yellow"><i class="icon-time"></i></span><strong>11.09.12</strong></span>
+					  </a></td>
+				    </tr>
+				</table>
+          </div>
+		</div>
+		
+		</div>
+</div>
+
+	
+
+<!--<div id="the_div" style="display:block;">Content Here</div>
+<a href="#" onclick="document.getElementById('the_div').style.display=(document.getElementById('the_div').style.display=='block')?'none':'block';">Show/Hide Div</a>-->
+
+  <!-- 												separator between the two tabs									 -->
+<div class="tab-pane" id="work_view">
+
+<div  class="container-fluid-custom opacious"><br><br><br>
+	 <table width="100%" class="table-condensed">
+	 <tr>
+	 <th style="width:6%"><span style="color:#cccccc">Status</span></th>
+	 <th style="width:27%"><span style="color:#cccccc">Title</span></th>
+	 <th style="width:15%"><span style="color:#cccccc">Tags</span></th>
+	 <th style="width:32%"><span style="color:#cccccc">Description</span></th>
+	 <th style="width:10%"><span class="pull-left" style="color:#cccccc">End Date</span></th>
+	 <th style="width:10%"><span class="pull-left" style="color:#cccccc">Days left</span></th>
+	 </tr>
+	 </table>
+		</div>
+
+			<div class="container-fluid" style="background-color:#ffffff">
+				<table width="100%" class="table table-striped">
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Send invoices to the clients</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Pick up Dad</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">flight is at 6:30</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 14.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>12</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-ok"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Meet Uncle</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">at the park</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 2.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>0</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Call Mum</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-important-space">Home</span></a>
+					 <a href="#"><span class="label label-white-space" style="color:#4d4d4d">Phone Calls</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Ask her about aunty's health</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 12.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>10</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Handover leave letter to boss</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 19.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>17</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-exclamation-sign"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Watch the movie - Amelie</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-important-space">Home</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Also call Kevin, Mark and others</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 3.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>1</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-exclamation-sign"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Pick up Kevin from school</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">At 1:30 pm</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 2.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>0</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Discuss project plans with team</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Meeting at 9:00 pm sharp</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 13.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>11</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%">
+					  <div class="dropdown">
+						  <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>Pick up flowers for Misty</strong></a>
+						  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						  <li><a href="#"><i class="icon-ok"></i>&nbsp;Done</a></li>
+						  <li><a href="#"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li>
+						  <li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li>
+						  </ul>
+						</div>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-warning-space">Downtown</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">Remember Tulips, not roses</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 7.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>5</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				  <tr>
+				      <td style="width:6%"><i class="icon-play"></i></td>
+				      <td style="width:27%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <strong>Send invoices to the clients</strong></a>
+					  </td>
+				     <td style="width:15%"><span class="pull-left"><a href="#"><span class="label label-success-space">Work</span></a></span></td>
+					 <td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">June invoices must be sent</span></a></td>
+					  <td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d">
+					  <span class="pull-left"><strong> 10.12.12</strong></span></a>
+					  </td>
+				      <td style="width:10%">
+						<span class="pull-left"><strong>8</strong></span>
+					  </td>
+				  </tr>
+				</table>
+				</div>
+	
+  </div>
+</div>
+
+<br>
+<div class="pagination pagination-centered">
+  <ul>
+    <li><a href="#"><i class="icon-chevron-left"></i></a></li>
+    <li class="disabled"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#"><i class="icon-chevron-right"></i></a></li>
+  </ul>
+</div>
+<footer class="footer"><hr></footer>
+    </div>
+  </div>
+</div>
+	<script src="{{ STATIC_URL }}js/demo.js"></script>
+
+  </body>
+</html>
