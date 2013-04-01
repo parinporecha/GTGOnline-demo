@@ -4,3 +4,5 @@ db:
   type: mysql
 cache:
   type: redis
+data:
+  type: mysql

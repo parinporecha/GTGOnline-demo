@@ -1,10 +1,10 @@
 # Django settings for Inception project.
 
 import os.path
-import json
-
-with open('/home/dotcloud/environment.json') as f:
-    env = json.load(f)
+#import json
+#
+#with open('/home/dotcloud/environment.json') as f:
+#    env = json.load(f)
     
 settings_dir = os.path.dirname(__file__)
 PROJECT_ROOT = os.path.abspath(os.path.dirname(settings_dir))
@@ -23,10 +23,10 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'demo',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': env['DOTCLOUD_DB_MYSQL_LOGIN'],
-        'PASSWORD': env['DOTCLOUD_DB_MYSQL_PASSWORD'],
-        'HOST': env['DOTCLOUD_DB_MYSQL_HOST'],                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': int(env['DOTCLOUD_DB_MYSQL_PORT']),                      # Set to empty string for default.
+        'USER': 'parin',
+        'PASSWORD': 'parin',
+        'HOST': '',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
     }
 }
 
