@@ -78,10 +78,10 @@
 				  <br>
 				  <li class="nav-header"><i class="icon-tasks"> </i>Tasks</li>
 				  <li class="divider"></li>
-				  <li><a href="#"><i class="icon-tasks"></i>All<span class="pull-right muted">108</span></a></li>
-				  <li><a href="#"><i class="icon-play"></i>Active<span class="pull-right muted">37</span></a></li>
-				  <li><a href="#"><i class="icon-ok"></i>Done<span class="pull-right muted">64</span></a></li>
-				  <li><a href="#"><i class="icon-minus-sign"></i>Dismissed<span class="pull-right muted">7</span></a></li>
+				  <li><a href="#"><i class="icon-tasks"></i>All<span class="pull-right muted" id="all_tasks"></span></a></li>
+				  <li><a href="#"><i class="icon-play"></i>Active<span class="pull-right muted" id="active_tasks"></span></a></li>
+				  <li><a href="#"><i class="icon-ok"></i>Done<span class="pull-right muted" id="done_tasks"></span></a></li>
+				  <li><a href="#"><i class="icon-minus-sign"></i>Dismissed<span class="pull-right muted" id="dismissed_tasks"></span></a></li>
 				  <br>
 				  <li class="nav-header"><i class="icon-tags"> </i>Tags</li>
 				  <li class="divider"></li>
@@ -111,7 +111,7 @@
 		</div>
 	</div>
     
-	<div class="span10" style="position:relative">
+	<div class="span10" style="position:relative; overflow: visible">
 	
 	<!---------------------------------------------------- start here for right pane 	---------------------------------------------------------------------->
 	
@@ -120,7 +120,7 @@
 		
 
 	<div class="tab-content">
-	  <div class="tab-pane active" id="organiser">
+	  <div class="tab-pane active" id="organiser" style="overflow: visible">
 	  
 	<!---------------------------------------------------    start here for tab pane ------------------------------------------------------------------>
 	  
@@ -140,7 +140,7 @@
 		
 		
 		  
-	  <div class="accordion container-fluid-custom2" id="topmost">
+	  <div class="accordion container-fluid-custom2" id="topmost" style="overflow: visible">
 		
 		<!--------------------------------------------   Task separator -------------------------------------------------->
 		
@@ -844,7 +844,8 @@
 		</div>
 		
 		<div class="accordion-group">-->
-		</div>
+		<hr><br><br><br>
+	  </div>
 		
 		<!--</div>-->
 </div>
@@ -1291,7 +1292,7 @@
 </div>
 
 <br>
-<div class="pagination pagination-centered">
+<!--<div class="pagination pagination-centered">
   <ul>
     <li><a href="#"><i class="icon-chevron-left"></i></a></li>
     <li class="disabled"><a href="#">1</a></li>
@@ -1302,7 +1303,7 @@
     <li><a href="#"><i class="icon-chevron-right"></i></a></li>
   </ul>
 </div>
-<footer class="footer"><hr></footer>
+<footer class="footer"><hr></footer>-->
     </div>
   </div>
 </div>
@@ -1348,12 +1349,39 @@
 	  {% autoescape off %}
 	  var task = {{ task|safe }}
 	  {% endautoescape %}
-	  var i=0;
+	  var i=0, done=0, dismissed=0, active=0;
 	  for (i=0; i<task.length; i++) {
-	    var new_task = '<div class="accordion-group" id="topmost"><div class="accordion-heading"><table width="99%" class="table-hover"><tr><td style="width:7%"><span class="accordion-toggle-custom"><input type="checkbox" class="checkbox"></span></td><td style="width:26%"><a href="#" style="text-decoration:none; color:#4d4d4d"><strong>' + task[i].name + '</strong></a></td><td style="width:15%"></td><td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">' + task[i].description + '</span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].start_date + '</strong></span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].due_date + '</strong></span></a></td></tr></table></div></div>';
+	    //var url1 = "{% url 'demo:mark_done' ";
+	    //url1 = url1.concat(i+1);
+	    //url1 = url1.concat(" %}");
+	    //var url2 = "{% url 'demo:mark_dismissed' ";
+	    //url2 = url2.concat(i+1);
+	    //url2 = url2.concat(" %}");
+	    //alert(url1);
+	    //alert(url2);
+	    
+	    var new_i = i+1;
+	    
+	    if (task[i].done == 1) {
+	      done++;
+	      var new_task = '<div class="accordion-group" id="topmost"><div class="accordion-heading" style="overflow:visible"><table width="99%" class="table-hover"><tr><td style="width:7%"><span class="accordion-toggle-custom"><input type="checkbox" class="checkbox"></span></td><td style="width:26%"><div class="dropdown" style="overflow:visible"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><i class="icon-ok"></i><strong>&nbsp;' + task[i].name + '</strong></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li><a href="/demo/' + new_i + '/mark_active/"><i class="icon-play"></i>&nbsp;Active</a></li><li><a href="/demo/' + new_i + '/mark_done/"><i class="icon-ok"></i>&nbsp;Done</a></li><li><a href="/demo/' + new_i + '/mark_dismissed/"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li><li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li></ul></div></td><td style="width:15%"></td><td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">' + task[i].description + '</span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].start_date + '</strong></span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].due_date + '</strong></span></a></td></tr></table></div></div>';
+	    }
+	    else if (task[i].dismissed == 1) {
+	      dismissed++;
+	      var new_task = '<div class="accordion-group" id="topmost"><div class="accordion-heading" style="overflow:visible"><table width="99%" class="table-hover"><tr><td style="width:7%"><span class="accordion-toggle-custom"><input type="checkbox" class="checkbox"></span></td><td style="width:26%"><div class="dropdown" style="overflow:visible"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><i class="icon-minus-sign"></i><strong>&nbsp;' + task[i].name + '</strong></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li><a href="/demo/' + new_i + '/mark_active/"><i class="icon-play"></i>&nbsp;Active</a></li><li><a href="/demo/' + new_i + '/mark_done/"><i class="icon-ok"></i>&nbsp;Done</a></li><li><a href="/demo/' + new_i + '/mark_dismissed/"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li><li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li></ul></div></td><td style="width:15%"></td><td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">' + task[i].description + '</span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].start_date + '</strong></span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].due_date + '</strong></span></a></td></tr></table></div></div>';
+	    }
+	    else
+	    {
+	      active++;
+	      var new_task = '<div class="accordion-group" id="topmost"><div class="accordion-heading" style="overflow:visible"><table width="99%" class="table-hover"><tr><td style="width:7%"><span class="accordion-toggle-custom"><input type="checkbox" class="checkbox"></span></td><td style="width:26%"><div class="dropdown" style="overflow:visible"><a class="dropdown-toggle" data-toggle="dropdown" href="#" style="text-decoration:none; color:#4d4d4d"><strong>&nbsp;' + task[i].name + '</strong></a><ul class="dropdown-menu" role="menu" aria-labelledby="dLabel"><li><a href="/demo/' + new_i + '/mark_active/"><i class="icon-play"></i>&nbsp;Active</a></li><li><a href="/demo/' + new_i + '/mark_done/"><i class="icon-ok"></i>&nbsp;Done</a></li><li><a href="/demo/' + new_i + '/mark_dismissed/"><i class="icon-minus-sign"></i>&nbsp;Dismissed</a></li><li><a href="#"><i class="icon-trash"></i>&nbsp;Delete</a></li></ul></div></td><td style="width:15%"></td><td style="width:32%"><a href="#" style="text-decoration:none"><span class="muted">' + task[i].description + '</span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].start_date + '</strong></span></a></td><td style="width:10%"><a href="#" style="text-decoration:none; color:#4d4d4d"><span class="pull-right"><strong>' + task[i].due_date + '</strong></span></a></td></tr></table></div></div>';
+	    }
 	    //var new_task = '<div>Insert Here</div>'
 	    $( "#topmost" ).before(new_task);
 	  }
+	  document.getElementById("done_tasks").innerHTML = done;
+	  document.getElementById("dismissed_tasks").innerHTML = dismissed;
+	  document.getElementById("active_tasks").innerHTML = active;
+	  document.getElementById("all_tasks").innerHTML = active+done+dismissed;
 	</script>
 	<script>
 	    function validateForm()

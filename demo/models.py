@@ -7,6 +7,9 @@ class Task(models.Model):
     start_date = models.DateField(null=True, blank=True)
     due_date = models.DateField(null=True, blank=True)
     tags = models.CharField(max_length=200)
+    done = models.IntegerField(default = 0)
+    dismissed = models.IntegerField(default = 0)
+    subtasks = models.CharField(max_length = 200)
     
     def __unicode__(self):
         return self.name

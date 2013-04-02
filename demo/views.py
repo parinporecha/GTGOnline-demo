@@ -14,7 +14,8 @@ def demo(request):
     print >>sys.stderr, "Entered demo function"
     tasks = []
     for i in Task.objects.all():
-        tasks.append({"id":i.id, "name":i.name, "description":i.description, "start_date":i.start_date.strftime('%d/%m/%Y') if i.start_date != None else "", "due_date":i.due_date.strftime('%d/%m/%Y') if i.due_date != None else ""})
+        tasks.append({"id":i.id, "name":i.name, "description":i.description, "start_date":i.start_date.strftime('%d/%m/%Y') if i.start_date != None else "", "due_date":i.due_date.strftime('%d/%m/%Y') if i.due_date != None else "",
+                      "done":i.done, "dismissed":i.dismissed})
     tasks_json = json.dumps(tasks)
     #return render_to_response('demo/demo.html', {'response':response_json})
     template = loader.get_template('demo/demo.html')
@@ -38,3 +39,30 @@ def create(request):
         #else:
             #print >>sys.stderr, "form is invalid"
             #form = ContactForm()
+            
+def mark_done(request, task_id):
+    print >>sys.stderr, "Task id is " + str(task_id)
+    print >>sys.stderr, int(task_id)
+    a = Task.objects.get(id = task_id)
+    a.done = 1
+    a.dismissed = 0 if a.dismissed == 1 else 0
+    a.save()
+    return HttpResponseRedirect('/demo/')
+    
+def mark_dismissed(request, task_id):
+    print >>sys.stderr, "Task id is " + str(task_id)
+    print >>sys.stderr, int(task_id)
+    a = Task.objects.get(id = task_id)
+    a.dismissed = 1
+    a.done = 0 if a.done else 0
+    a.save()
+    return HttpResponseRedirect('/demo/')
+
+def mark_active(request, task_id):
+    print >>sys.stderr, "Task id is " + str(task_id)
+    print >>sys.stderr, int(task_id)
+    a = Task.objects.get(id = task_id)
+    a.done = 0
+    a.dismissed = 0
+    a.save()
+    return HttpResponseRedirect('/demo/')
