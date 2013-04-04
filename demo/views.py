@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response, render
 import json
 import sys
 import datetime
+import re
 
 from models import Task
 
@@ -15,7 +16,7 @@ def demo(request):
     tasks = []
     for i in Task.objects.all():
         tasks.append({"id":i.id, "name":i.name, "description":i.description, "start_date":i.start_date.strftime('%d/%m/%Y') if i.start_date != None else "", "due_date":i.due_date.strftime('%d/%m/%Y') if i.due_date != None else "",
-                      "done":i.done, "dismissed":i.dismissed})
+                      "done":i.done, "dismissed":i.dismissed, "tags":find_tags(i.description)})
     tasks_json = json.dumps(tasks)
     #return render_to_response('demo/demo.html', {'response':response_json})
     template = loader.get_template('demo/demo.html')
@@ -74,3 +75,6 @@ def delete(request, task_id):
     a.delete()
     return HttpResponseRedirect('/demo/')
 
+def find_tags(text):
+    #tags_str = task.tags
+    return re.findall(r'(?:^|[\s])(@[\w\/\.\-\:]*\w)', text)

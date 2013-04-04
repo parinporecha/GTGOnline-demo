@@ -5812,14 +5812,14 @@ a.badge:focus {
 .label-warning-space,
 .badge-warning-space {
   background-color: #f89406;
-  margin-left: 4px;
+  /*margin-left: 4px;*/
   margin-right: 4px;
 }
 
 .label-warning-space[href],
 .badge-warning-space[href] {
   background-color: #c67605;
-  margin-left: 4px;
+  /*margin-left: 4px;*/
   margin-right: 4px;
 }
 
