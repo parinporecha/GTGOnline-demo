@@ -90,7 +90,7 @@
         $(document).delegate('#main', 'keyup', function(e) {
             var keyCode = e.keyCode || e.which;
             
-            if (keyCode < 14 || keyCode > 46) {
+            if (keyCode < 14 || keyCode > 46 || keyCode == 32) {
                 prev_value++;
             }
             

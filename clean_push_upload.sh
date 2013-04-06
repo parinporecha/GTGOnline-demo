@@ -29,9 +29,9 @@ do
     fi
 
     $command
+    git status
     echo -e "$newline"
     read -p ">>> Enter git commands: " command
-    git status
 done
 
 echo -e "$newline"
