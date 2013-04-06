@@ -1,7 +1,7 @@
 find . -name '*.pyc' -print0 | xargs -0 rm -f
 cp ./Inception/settings_for_dotcloud.py ./Inception/settings.py
 
-newline="\n\n\n"
+newline="\n"
 git status
 echo -e "$newline"
 read -p ">>> Proceed to push the code to dotcloud ? " yn
@@ -35,8 +35,9 @@ do
 done
 
 echo -e "$newline"
+
 read -p ">>> Enter commit message: " commit_msg
-git commit -m $commit_msg
+git commit -m "$commit_msg"
 git push origin master
 cp ./Inception/settings_for_localhost.py ./Inception/settings.py
-echo -e "$newline"
+echo -e "\nDone !\n"

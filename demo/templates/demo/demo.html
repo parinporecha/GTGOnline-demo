@@ -71,9 +71,19 @@
 		<div class="row-fluid">
 		<div class="span2">
 			
-		<div class="sidebar-nav well sidebar-nav-fixed">
+		<div class="sidebar-nav well-narrow sidebar-nav-fixed">
 				<ul class="nav nav-list">
-				  <li><button class="btn btn-large" type="button" href="#myModal" data-toggle="modal">New Task</button></li>
+				  <!--<li><button class="btn btn-large" type="button" href="#myModal" data-toggle="modal">New Task</button></li>-->
+				  <!--<li><button class="btn btn-large" type="button" href="/demo/advanced/" data-toggle="modal">Advanced</button></li>-->
+				  <li><div class="btn-group">
+				    <button class="btn btn-large" type="button" href="#myModal" data-toggle="modal">New Task</button>
+				    <button class="btn dropdown-toggle btn-large" data-toggle="dropdown">
+				      <span class="caret"></span>
+				    </button>
+				    <ul class="dropdown-menu">
+				      <li><a href="/demo/advanced">Advanced</a></li>
+				    </ul>
+				  </div></li>
 				  <!--<li><a href="#myModal" type="button" class="btn btn-large" data-toggle="modal">New Task</a></li>-->
 				  <br>
 				  <li class="nav-header"><i class="icon-tasks"> </i>Tasks</li>

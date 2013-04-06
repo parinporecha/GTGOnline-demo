@@ -41,6 +41,14 @@ def create(request):
             #print >>sys.stderr, "form is invalid"
             #form = ContactForm()
             
+def create_advanced(request):
+    print >>sys.stderr, "Posted to create_advanced"
+    if request.method == "POST":
+        print >>sys.stderr, "structure has been identified as POST"
+    printthis = "This will be parsed and all the tasks, subtasks, tags, etc. will be extracted from it |||||||||"
+    return HttpResponse(printthis + '\nGot the structure\n' + request.POST['structure'])
+
+
 def mark_done(request, task_id):
     print >>sys.stderr, "Task id is " + str(task_id)
     print >>sys.stderr, int(task_id)
@@ -78,3 +86,11 @@ def delete(request, task_id):
 def find_tags(text):
     #tags_str = task.tags
     return re.findall(r'(?:^|[\s])(@[\w\/\.\-\:]*\w)', text)
+
+def advanced(request):
+    print >>sys.stderr, "Entered advanced mode"
+    template = loader.get_template('demo/advanced.html')
+    context = RequestContext(request, {})
+    #return HttpResponse(template.render(context))
+    return render(request, 'demo/advanced.html', {})
+
