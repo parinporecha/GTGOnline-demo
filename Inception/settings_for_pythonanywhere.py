@@ -21,12 +21,12 @@ MANAGERS = ADMINS
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'demo',                      # Or path to database file if using sqlite3.
+        'NAME': 'parinporecha$demo',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
-        'USER': env['DOTCLOUD_DB_MYSQL_LOGIN'],
-        'PASSWORD': env['DOTCLOUD_DB_MYSQL_PASSWORD'],
-        'HOST': env['DOTCLOUD_DB_MYSQL_HOST'],                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': int(env['DOTCLOUD_DB_MYSQL_PORT']),                      # Set to empty string for default.
+        'USER': 'parinporecha',
+        'PASSWORD': 'parinporecha',
+        'HOST': 'mysql.server',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
+        'PORT': '',                      # Set to empty string for default.
     }
 }
 
