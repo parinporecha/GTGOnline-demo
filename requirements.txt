@@ -1,2 +1,0 @@
-Django==1.5
-django-redis==1.4.5
